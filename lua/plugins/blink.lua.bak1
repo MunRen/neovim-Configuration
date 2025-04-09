@@ -1,0 +1,34 @@
+return {
+    "saghen/blink.cmp",
+    version = "*",
+    dependencies = {
+        "rafamadriz/friendly-snippets",
+    },
+    event = "VeryLazy",
+    opts = {
+        completion = {
+            documentation = {
+                auto_show = true,
+            },
+        },
+        keymap = {
+            preset = "super-tab",
+        },
+        sources = {
+            default = { "path", "snippets", "buffer", "lsp" },
+        },
+        cmdline = {
+            sources = function()
+                local cmd_type = vim.fn.getcmdtype()
+                if cmd_type == "/" or cmd_type == "?" then
+                    return { { name = "buffer", option = {} } }
+                end
+
+                if cmd_type == ":" then
+                    return { { name = "cmdline", option = {} } }
+                end
+                return {}
+            end,
+        },
+    },
+}
